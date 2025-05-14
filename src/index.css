@@ -1,10 +1,11 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -13,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 210 79% 46%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -35,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -96,6 +90,26 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-bi-light text-bi-dark font-sans;
   }
+  
+  h1, h2, h3 {
+    @apply text-bi-primary font-semibold;
+  }
+  
+  h1 {
+    @apply text-3xl md:text-4xl border-b-3 border-bi-primary pb-2 mb-6;
+  }
+  
+  h2 {
+    @apply text-xl md:text-2xl mb-4;
+  }
+  
+  section {
+    @apply bg-white p-4 md:p-6 mb-6 rounded-lg shadow-md;
+  }
+}
+
+.animate-delayed {
+  animation-delay: calc(var(--index) * 100ms);
 }
