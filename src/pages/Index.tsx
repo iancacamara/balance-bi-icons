@@ -1,33 +1,159 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Users, 
   Store, 
   Clock, 
   UserCog, 
   BarChart4, 
-  Filter 
+  Filter,
+  Info
 } from 'lucide-react';
 import StatCard from '@/components/StatCard';
-import NameList from '@/components/NameList';
 import DataTable from '@/components/DataTable';
 import FiltersList from '@/components/FiltersList';
+import { 
+  Table, 
+  TableBody, 
+  TableCaption, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import PromoterDetails from '@/components/PromoterDetails';
 
 const Index = () => {
-  // Dados dos promotores inativos
+  // Estado para controlar o modal de detalhes
+  const [selectedPromoter, setSelectedPromoter] = useState<string | null>(null);
+  
+  // Dados dos promotores inativos com justificativas
   const inactivePromoters = [
-    "ANA CAROLINA SOUSA ROCHA",
-    "BEATRIZ CONCEIÇÃO DA COSTA",
-    "CÁSSIO SILVA DA CONCEIÇÃO",
-    "ERICK WILLIAM PROENÇA",
-    "HALISSON DA SILVA SANTOS",
-    "INGRID STEFANI DE OLIVEIRA CORDEIRO",
-    "LUANE APARECIDA DA SILVA",
-    "LUCAS RIBEIRO DA SILVA",
-    "SHIRLEY MARTINS DA SILVA NASCIMENTO",
-    "SUELLEN RIBEIRO GOMES",
-    "THAMIRES SILVA RODRIGUES",
-    "WESLEY GONÇALVES DA SILVA MARINHO"
+    {
+      name: "ANA CAROLINA SOUSA ROCHA",
+      reason: "Não compareceu em 3 reuniões consecutivas",
+      justification: "Sem contato há 45 dias",
+      status: "Crítico",
+      details: {
+        reason: "A promotora não compareceu a três reuniões consecutivas e não respondeu aos contatos da coordenação.",
+        notes: "Tentativas de contato foram feitas em 15/03, 22/03 e 29/03 sem sucesso. E-mails foram enviados mas não houve resposta. Situação encaminhada para o RH.",
+        imageSrc: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+      }
+    },
+    {
+      name: "BEATRIZ CONCEIÇÃO DA COSTA",
+      reason: "Afastamento médico",
+      justification: "Atestado enviado em 10/04",
+      status: "Justificado",
+      details: {
+        reason: "Afastamento por motivos médicos com atestado válido.",
+        notes: "Atestado médico com validade até 15/05. Retorno previsto para 16/05.",
+        imageSrc: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+      }
+    },
+    {
+      name: "CÁSSIO SILVA DA CONCEIÇÃO",
+      reason: "Desligamento voluntário",
+      justification: "Pedido de demissão em 22/03",
+      status: "Encerrado",
+      details: {
+        reason: "Promotor pediu desligamento voluntário por motivos pessoais.",
+        notes: "Realizou a entrega do crachá e equipamentos. Documentação de saída processada pelo RH."
+      }
+    },
+    {
+      name: "ERICK WILLIAM PROENÇA",
+      reason: "Baixa performance",
+      justification: "Abaixo da meta por 3 meses",
+      status: "Em análise",
+      details: {
+        reason: "Performance abaixo do esperado por três meses consecutivos.",
+        notes: "Reuniões de feedback realizadas em 10/02, 15/03 e 05/04. Plano de melhoria não atingiu os objetivos propostos."
+      }
+    },
+    {
+      name: "HALISSON DA SILVA SANTOS",
+      reason: "Não comparecimento",
+      justification: "Abandono de função",
+      status: "Crítico",
+      details: {
+        reason: "Não compareceu ao trabalho por mais de 15 dias sem justificativa.",
+        notes: "Processo de abandono de função iniciado pelo RH após 15 dias de ausência sem comunicação."
+      }
+    },
+    {
+      name: "INGRID STEFANI DE OLIVEIRA CORDEIRO",
+      reason: "Transferência interna",
+      justification: "Mudança de departamento",
+      status: "Encerrado",
+      details: {
+        reason: "Transferida para outro departamento da empresa.",
+        notes: "Transferência aprovada pela gerência em 01/04. Novo departamento: Marketing."
+      }
+    },
+    {
+      name: "LUANE APARECIDA DA SILVA",
+      reason: "Licença maternidade",
+      justification: "Afastamento legal",
+      status: "Justificado",
+      details: {
+        reason: "Em licença maternidade desde 15/03.",
+        notes: "Retorno previsto para 15/09. Documentação processada pelo RH."
+      }
+    },
+    {
+      name: "LUCAS RIBEIRO DA SILVA",
+      reason: "Conflito de agenda",
+      justification: "Problemas com horário",
+      status: "Em análise",
+      details: {
+        reason: "Conflitos recorrentes com horários estabelecidos.",
+        notes: "Reunião de alinhamento marcada para 10/05 para discutir alternativas de horário.",
+        imageSrc: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+      }
+    },
+    {
+      name: "SHIRLEY MARTINS DA SILVA NASCIMENTO",
+      reason: "Problemas de saúde",
+      justification: "Sem atestado formal",
+      status: "Pendente",
+      details: {
+        reason: "Relatou problemas de saúde, mas não enviou documentação médica.",
+        notes: "Aguardando envio de atestado médico. Prazo final: 12/05."
+      }
+    },
+    {
+      name: "SUELLEN RIBEIRO GOMES",
+      reason: "Mudança de residência",
+      justification: "Relocalização geográfica",
+      status: "Encerrado",
+      details: {
+        reason: "Mudança para outra cidade impossibilitou continuidade.",
+        notes: "Processo de desligamento amigável concluído em 28/03."
+      }
+    },
+    {
+      name: "THAMIRES SILVA RODRIGUES",
+      reason: "Oportunidade externa",
+      justification: "Nova proposta de trabalho",
+      status: "Encerrado",
+      details: {
+        reason: "Aceitou proposta de outra empresa.",
+        notes: "Entrevista de desligamento realizada em 05/04. Feedback positivo sobre a experiência na empresa."
+      }
+    },
+    {
+      name: "WESLEY GONÇALVES DA SILVA MARINHO",
+      reason: "Questões disciplinares",
+      justification: "Múltiplas advertências",
+      status: "Crítico",
+      details: {
+        reason: "Recebeu 3 advertências por questões disciplinares.",
+        notes: "Última advertência em 02/04 por descumprimento de procedimentos operacionais. Caso encaminhado para análise do RH.",
+        imageSrc: "https://images.unsplash.com/photo-1501854140801-50d01698950b"
+      }
+    }
   ];
 
   // Dados dos coordenadores
@@ -262,6 +388,18 @@ const Index = () => {
     }
   ];
 
+  // Status colors
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Crítico': return 'bg-red-100 text-red-800';
+      case 'Em análise': return 'bg-amber-100 text-amber-800';
+      case 'Pendente': return 'bg-blue-100 text-blue-800';
+      case 'Justificado': return 'bg-green-100 text-green-800';
+      case 'Encerrado': return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
   return (
     <div className="container py-8 max-w-7xl mx-auto">
       <h1 className="text-center md:text-left">Apresentação do B.I. de Balanceamento</h1>
@@ -277,7 +415,63 @@ const Index = () => {
           />
         </div>
         
-        <NameList names={inactivePromoters} />
+        <div className="rounded-md border overflow-x-auto">
+          <Table>
+            <TableCaption>Lista de promotores inativos e suas justificativas</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="bg-bi-primary text-white">Nome do Promotor</TableHead>
+                <TableHead className="bg-bi-primary text-white">Motivo</TableHead>
+                <TableHead className="bg-bi-primary text-white">Justificativa</TableHead>
+                <TableHead className="bg-bi-primary text-white">Status</TableHead>
+                <TableHead className="bg-bi-primary text-white">Detalhes</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {inactivePromoters.map((promoter, index) => (
+                <TableRow key={index} className={index % 2 === 1 ? 'bg-bi-hover' : ''}>
+                  <TableCell className="font-medium">{promoter.name}</TableCell>
+                  <TableCell>
+                    <HoverCard>
+                      <HoverCardTrigger asChild>
+                        <span className="cursor-help underline underline-offset-2 text-bi-primary">
+                          {promoter.reason}
+                        </span>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-80">
+                        <div className="flex justify-between space-x-4">
+                          <div className="space-y-1">
+                            <h4 className="text-sm font-semibold">Detalhes do Motivo</h4>
+                            <p className="text-sm">
+                              {promoter.details.reason}
+                            </p>
+                          </div>
+                        </div>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </TableCell>
+                  <TableCell>{promoter.justification}</TableCell>
+                  <TableCell>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(promoter.status)}`}>
+                      {promoter.status}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="flex items-center gap-1"
+                      onClick={() => setSelectedPromoter(promoter.name)}
+                    >
+                      <Info className="h-4 w-4" />
+                      Ver
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </section>
       
       <section className="animate-fade-in">
@@ -371,6 +565,21 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      {/* Modal de detalhes do promotor */}
+      {selectedPromoter && (
+        <PromoterDetails
+          name={selectedPromoter}
+          open={!!selectedPromoter}
+          onOpenChange={(open) => {
+            if (!open) setSelectedPromoter(null);
+          }}
+          details={inactivePromoters.find(p => p.name === selectedPromoter)?.details || {
+            reason: "",
+            notes: ""
+          }}
+        />
+      )}
     </div>
   );
 };
