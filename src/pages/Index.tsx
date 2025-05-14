@@ -11,6 +11,7 @@ import {
 import StatCard from '@/components/StatCard';
 import DataTable from '@/components/DataTable';
 import FiltersList from '@/components/FiltersList';
+import NameList from '@/components/NameList';
 import { 
   Table, 
   TableBody, 
@@ -22,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Badge } from "@/components/ui/badge";
 import PromoterDetails from '@/components/PromoterDetails';
 
 const Index = () => {
@@ -34,17 +36,27 @@ const Index = () => {
       name: "ANA CAROLINA SOUSA ROCHA",
       reason: "Não compareceu em 3 reuniões consecutivas",
       justification: "Sem contato há 45 dias",
+      lastActivity: "12/03",
+      region: "SPI2",
       status: "Crítico",
       details: {
         reason: "A promotora não compareceu a três reuniões consecutivas e não respondeu aos contatos da coordenação.",
         notes: "Tentativas de contato foram feitas em 15/03, 22/03 e 29/03 sem sucesso. E-mails foram enviados mas não houve resposta. Situação encaminhada para o RH.",
-        imageSrc: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+        imageSrc: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+        errors: [
+          "Ausência não justificada em reunião obrigatória no dia 15/03",
+          "Não respondeu a 5 tentativas de contato via telefone",
+          "Clientes sem atendimento relataram problemas"
+        ],
+        recommendations: "Recomendação: iniciar processo de substituição e verificar procedimentos de rescisão contratual."
       }
     },
     {
       name: "BEATRIZ CONCEIÇÃO DA COSTA",
       reason: "Afastamento médico",
       justification: "Atestado enviado em 10/04",
+      lastActivity: "10/04",
+      region: "SP1",
       status: "Justificado",
       details: {
         reason: "Afastamento por motivos médicos com atestado válido.",
@@ -56,6 +68,8 @@ const Index = () => {
       name: "CÁSSIO SILVA DA CONCEIÇÃO",
       reason: "Desligamento voluntário",
       justification: "Pedido de demissão em 22/03",
+      lastActivity: "22/03",
+      region: "SUL1",
       status: "Encerrado",
       details: {
         reason: "Promotor pediu desligamento voluntário por motivos pessoais.",
@@ -66,6 +80,8 @@ const Index = () => {
       name: "ERICK WILLIAM PROENÇA",
       reason: "Baixa performance",
       justification: "Abaixo da meta por 3 meses",
+      lastActivity: "05/04",
+      region: "Nordeste",
       status: "Em análise",
       details: {
         reason: "Performance abaixo do esperado por três meses consecutivos.",
@@ -76,6 +92,8 @@ const Index = () => {
       name: "HALISSON DA SILVA SANTOS",
       reason: "Não comparecimento",
       justification: "Abandono de função",
+      lastActivity: "15/04",
+      region: "SP2",
       status: "Crítico",
       details: {
         reason: "Não compareceu ao trabalho por mais de 15 dias sem justificativa.",
@@ -86,6 +104,8 @@ const Index = () => {
       name: "INGRID STEFANI DE OLIVEIRA CORDEIRO",
       reason: "Transferência interna",
       justification: "Mudança de departamento",
+      lastActivity: "01/04",
+      region: "SUL2",
       status: "Encerrado",
       details: {
         reason: "Transferida para outro departamento da empresa.",
@@ -96,6 +116,8 @@ const Index = () => {
       name: "LUANE APARECIDA DA SILVA",
       reason: "Licença maternidade",
       justification: "Afastamento legal",
+      lastActivity: "15/03",
+      region: "SPI1",
       status: "Justificado",
       details: {
         reason: "Em licença maternidade desde 15/03.",
@@ -106,6 +128,8 @@ const Index = () => {
       name: "LUCAS RIBEIRO DA SILVA",
       reason: "Conflito de agenda",
       justification: "Problemas com horário",
+      lastActivity: "10/05",
+      region: "SP3",
       status: "Em análise",
       details: {
         reason: "Conflitos recorrentes com horários estabelecidos.",
@@ -117,6 +141,8 @@ const Index = () => {
       name: "SHIRLEY MARTINS DA SILVA NASCIMENTO",
       reason: "Problemas de saúde",
       justification: "Sem atestado formal",
+      lastActivity: "28/04",
+      region: "Nacional",
       status: "Pendente",
       details: {
         reason: "Relatou problemas de saúde, mas não enviou documentação médica.",
@@ -127,6 +153,8 @@ const Index = () => {
       name: "SUELLEN RIBEIRO GOMES",
       reason: "Mudança de residência",
       justification: "Relocalização geográfica",
+      lastActivity: "28/03",
+      region: "MG",
       status: "Encerrado",
       details: {
         reason: "Mudança para outra cidade impossibilitou continuidade.",
@@ -137,6 +165,8 @@ const Index = () => {
       name: "THAMIRES SILVA RODRIGUES",
       reason: "Oportunidade externa",
       justification: "Nova proposta de trabalho",
+      lastActivity: "05/04",
+      region: "RJ",
       status: "Encerrado",
       details: {
         reason: "Aceitou proposta de outra empresa.",
@@ -147,6 +177,8 @@ const Index = () => {
       name: "WESLEY GONÇALVES DA SILVA MARINHO",
       reason: "Questões disciplinares",
       justification: "Múltiplas advertências",
+      lastActivity: "02/04",
+      region: "ES",
       status: "Crítico",
       details: {
         reason: "Recebeu 3 advertências por questões disciplinares.",
@@ -423,6 +455,8 @@ const Index = () => {
                 <TableHead className="bg-bi-primary text-white">Nome do Promotor</TableHead>
                 <TableHead className="bg-bi-primary text-white">Motivo</TableHead>
                 <TableHead className="bg-bi-primary text-white">Justificativa</TableHead>
+                <TableHead className="bg-bi-primary text-white">Última Atividade</TableHead>
+                <TableHead className="bg-bi-primary text-white">Regional</TableHead>
                 <TableHead className="bg-bi-primary text-white">Status</TableHead>
                 <TableHead className="bg-bi-primary text-white">Detalhes</TableHead>
               </TableRow>
@@ -430,7 +464,15 @@ const Index = () => {
             <TableBody>
               {inactivePromoters.map((promoter, index) => (
                 <TableRow key={index} className={index % 2 === 1 ? 'bg-bi-hover' : ''}>
-                  <TableCell className="font-medium">{promoter.name}</TableCell>
+                  <TableCell className="font-medium">
+                    <Button 
+                      variant="link" 
+                      className="p-0 h-auto font-medium text-left underline-offset-4"
+                      onClick={() => setSelectedPromoter(promoter.name)}
+                    >
+                      {promoter.name}
+                    </Button>
+                  </TableCell>
                   <TableCell>
                     <HoverCard>
                       <HoverCardTrigger asChild>
@@ -451,10 +493,15 @@ const Index = () => {
                     </HoverCard>
                   </TableCell>
                   <TableCell>{promoter.justification}</TableCell>
+                  <TableCell>{promoter.lastActivity || "-"}</TableCell>
+                  <TableCell>{promoter.region || "-"}</TableCell>
                   <TableCell>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(promoter.status)}`}>
+                    <Badge 
+                      variant="outline" 
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(promoter.status)}`}
+                    >
                       {promoter.status}
-                    </span>
+                    </Badge>
                   </TableCell>
                   <TableCell>
                     <Button 

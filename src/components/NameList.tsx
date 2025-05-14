@@ -20,7 +20,7 @@ const NameList = ({ names, title }: NameListProps) => {
       {title && <h3 className="text-lg font-medium">{title}</h3>}
       
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-bi-muted h-4 w-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
         <Input 
           placeholder="Buscar nomes..."
           className="pl-10"
@@ -34,8 +34,8 @@ const NameList = ({ names, title }: NameListProps) => {
           {filteredNames.map((name, index) => (
             <li 
               key={index}
-              className="animate-slide-up"
-              style={{ '--index': index } as React.CSSProperties}
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               {name}
             </li>
@@ -43,7 +43,7 @@ const NameList = ({ names, title }: NameListProps) => {
         </ul>
         
         {filteredNames.length === 0 && (
-          <p className="text-bi-muted italic text-center py-4">Nenhum nome encontrado</p>
+          <p className="text-muted-foreground italic text-center py-4">Nenhum nome encontrado</p>
         )}
       </div>
     </div>
