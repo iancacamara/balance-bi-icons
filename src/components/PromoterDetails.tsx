@@ -4,11 +4,14 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
+  DialogFooter
 } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { Info, FileText, Edit, Image, AlertTriangle } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 
 interface PromoterDetailsProps {
   name: string;
@@ -25,6 +28,26 @@ interface PromoterDetailsProps {
 
 const PromoterDetails = ({ name, open, onOpenChange, details }: PromoterDetailsProps) => {
   const [activeTab, setActiveTab] = useState("info");
+  const { toast } = useToast();
+  
+  const copyDetails = () => {
+    const detailText = `
+      Promotor: ${name}
+      Motivo: ${details.reason}
+      Notas: ${details.notes}
+      ${details.recommendations ? `Recomendações: ${details.recommendations}` : ''}
+      ${details.errors ? `Problemas: ${details.errors.join(', ')}` : ''}
+    `;
+    
+    navigator.clipboard.writeText(detailText).then(() => {
+      toast({
+        title: "Dados copiados",
+        description: "Detalhes do promotor copiados para a área de transferência",
+      });
+    }).catch(err => {
+      console.error('Erro ao copiar: ', err);
+    });
+  };
   
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -121,6 +144,12 @@ const PromoterDetails = ({ name, open, onOpenChange, details }: PromoterDetailsP
             </TabsContent>
           )}
         </Tabs>
+        
+        <DialogFooter className="mt-4">
+          <Button onClick={copyDetails} className="ml-auto">
+            Copiar Detalhes
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

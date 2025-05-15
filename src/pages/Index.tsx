@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Users, 
   Store, 
@@ -6,7 +6,8 @@ import {
   UserCog, 
   BarChart4, 
   Filter,
-  Info
+  Info,
+  Search
 } from 'lucide-react';
 import StatCard from '@/components/StatCard';
 import DataTable from '@/components/DataTable';
@@ -24,27 +25,31 @@ import {
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import PromoterDetails from '@/components/PromoterDetails';
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   // Estado para controlar o modal de detalhes
   const [selectedPromoter, setSelectedPromoter] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { toast } = useToast();
   
-  // Dados dos promotores inativos com justificativas
+  // Dados dos promotores inativos (dados atualizados do CSV)
   const inactivePromoters = [
     {
       name: "ANA CAROLINA SOUSA ROCHA",
-      reason: "Não compareceu em 3 reuniões consecutivas",
-      justification: "Sem contato há 45 dias",
-      lastActivity: "12/03",
+      reason: "Não compareceu por 30 dias",
+      justification: "Sem contato",
+      lastActivity: "22/04",
       region: "SPI2",
       status: "Crítico",
       details: {
-        reason: "A promotora não compareceu a três reuniões consecutivas e não respondeu aos contatos da coordenação.",
-        notes: "Tentativas de contato foram feitas em 15/03, 22/03 e 29/03 sem sucesso. E-mails foram enviados mas não houve resposta. Situação encaminhada para o RH.",
-        imageSrc: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+        reason: "A promotora não compareceu ao trabalho por mais de 30 dias e não atendeu as ligações.",
+        notes: "Tentativas de contato foram feitas nos dias 23/04, 25/04 e 29/04 sem sucesso. E-mails foram enviados mas não houve resposta.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor1.jpg",
         errors: [
-          "Ausência não justificada em reunião obrigatória no dia 15/03",
+          "Ausência não justificada por 30 dias consecutivos",
           "Não respondeu a 5 tentativas de contato via telefone",
           "Clientes sem atendimento relataram problemas"
         ],
@@ -54,139 +59,200 @@ const Index = () => {
     {
       name: "BEATRIZ CONCEIÇÃO DA COSTA",
       reason: "Afastamento médico",
-      justification: "Atestado enviado em 10/04",
-      lastActivity: "10/04",
+      justification: "Atestado enviado",
+      lastActivity: "15/04",
       region: "SP1",
       status: "Justificado",
       details: {
         reason: "Afastamento por motivos médicos com atestado válido.",
         notes: "Atestado médico com validade até 15/05. Retorno previsto para 16/05.",
-        imageSrc: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor2.jpg"
       }
     },
     {
       name: "CÁSSIO SILVA DA CONCEIÇÃO",
       reason: "Desligamento voluntário",
-      justification: "Pedido de demissão em 22/03",
-      lastActivity: "22/03",
+      justification: "Pedido de demissão",
+      lastActivity: "05/04",
       region: "SUL1",
       status: "Encerrado",
       details: {
         reason: "Promotor pediu desligamento voluntário por motivos pessoais.",
-        notes: "Realizou a entrega do crachá e equipamentos. Documentação de saída processada pelo RH."
+        notes: "Realizou a entrega do crachá e equipamentos. Documentação de saída processada pelo RH.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor3.jpg"
       }
     },
     {
       name: "ERICK WILLIAM PROENÇA",
       reason: "Baixa performance",
-      justification: "Abaixo da meta por 3 meses",
-      lastActivity: "05/04",
+      justification: "Abaixo da meta",
+      lastActivity: "10/04",
       region: "Nordeste",
       status: "Em análise",
       details: {
         reason: "Performance abaixo do esperado por três meses consecutivos.",
-        notes: "Reuniões de feedback realizadas em 10/02, 15/03 e 05/04. Plano de melhoria não atingiu os objetivos propostos."
+        notes: "Reuniões de feedback realizadas em 15/02, 20/03 e 10/04. Plano de melhoria não atingiu os objetivos propostos.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor4.jpg"
       }
     },
     {
       name: "HALISSON DA SILVA SANTOS",
-      reason: "Não comparecimento",
-      justification: "Abandono de função",
-      lastActivity: "15/04",
+      reason: "Abandono de função",
+      justification: "Sem comunicação",
+      lastActivity: "30/03",
       region: "SP2",
       status: "Crítico",
       details: {
         reason: "Não compareceu ao trabalho por mais de 15 dias sem justificativa.",
-        notes: "Processo de abandono de função iniciado pelo RH após 15 dias de ausência sem comunicação."
+        notes: "Processo de abandono de função iniciado pelo RH após 15 dias de ausência sem comunicação.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor5.jpg"
       }
     },
     {
       name: "INGRID STEFANI DE OLIVEIRA CORDEIRO",
       reason: "Transferência interna",
       justification: "Mudança de departamento",
-      lastActivity: "01/04",
+      lastActivity: "12/04",
       region: "SUL2",
       status: "Encerrado",
       details: {
         reason: "Transferida para outro departamento da empresa.",
-        notes: "Transferência aprovada pela gerência em 01/04. Novo departamento: Marketing."
+        notes: "Transferência aprovada pela gerência em 12/04. Novo departamento: Marketing.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor6.jpg"
       }
     },
     {
       name: "LUANE APARECIDA DA SILVA",
       reason: "Licença maternidade",
       justification: "Afastamento legal",
-      lastActivity: "15/03",
+      lastActivity: "20/03",
       region: "SPI1",
       status: "Justificado",
       details: {
-        reason: "Em licença maternidade desde 15/03.",
-        notes: "Retorno previsto para 15/09. Documentação processada pelo RH."
+        reason: "Em licença maternidade desde 20/03.",
+        notes: "Retorno previsto para 20/09. Documentação processada pelo RH.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor7.jpg"
       }
     },
     {
       name: "LUCAS RIBEIRO DA SILVA",
-      reason: "Conflito de agenda",
-      justification: "Problemas com horário",
-      lastActivity: "10/05",
+      reason: "Conflito de horário",
+      justification: "Impossibilidade de agenda",
+      lastActivity: "18/04",
       region: "SP3",
       status: "Em análise",
       details: {
         reason: "Conflitos recorrentes com horários estabelecidos.",
-        notes: "Reunião de alinhamento marcada para 10/05 para discutir alternativas de horário.",
-        imageSrc: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+        notes: "Reunião de alinhamento marcada para 25/04 para discutir alternativas de horário.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor8.jpg"
       }
     },
     {
       name: "SHIRLEY MARTINS DA SILVA NASCIMENTO",
-      reason: "Problemas de saúde",
+      reason: "Problema de saúde",
       justification: "Sem atestado formal",
-      lastActivity: "28/04",
+      lastActivity: "14/04",
       region: "Nacional",
       status: "Pendente",
       details: {
         reason: "Relatou problemas de saúde, mas não enviou documentação médica.",
-        notes: "Aguardando envio de atestado médico. Prazo final: 12/05."
+        notes: "Aguardando envio de atestado médico. Prazo final: 28/04.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor9.jpg"
       }
     },
     {
       name: "SUELLEN RIBEIRO GOMES",
       reason: "Mudança de residência",
-      justification: "Relocalização geográfica",
-      lastActivity: "28/03",
+      justification: "Relocalização",
+      lastActivity: "05/04",
       region: "MG",
       status: "Encerrado",
       details: {
         reason: "Mudança para outra cidade impossibilitou continuidade.",
-        notes: "Processo de desligamento amigável concluído em 28/03."
+        notes: "Processo de desligamento amigável concluído em 05/04.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor10.jpg"
       }
     },
     {
       name: "THAMIRES SILVA RODRIGUES",
-      reason: "Oportunidade externa",
-      justification: "Nova proposta de trabalho",
-      lastActivity: "05/04",
+      reason: "Nova proposta",
+      justification: "Oportunidade externa",
+      lastActivity: "08/04",
       region: "RJ",
       status: "Encerrado",
       details: {
         reason: "Aceitou proposta de outra empresa.",
-        notes: "Entrevista de desligamento realizada em 05/04. Feedback positivo sobre a experiência na empresa."
+        notes: "Entrevista de desligamento realizada em 08/04. Feedback positivo sobre a experiência na empresa.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor11.jpg"
       }
     },
     {
       name: "WESLEY GONÇALVES DA SILVA MARINHO",
-      reason: "Questões disciplinares",
-      justification: "Múltiplas advertências",
-      lastActivity: "02/04",
+      reason: "Advertências múltiplas",
+      justification: "Questões disciplinares",
+      lastActivity: "11/04",
       region: "ES",
       status: "Crítico",
       details: {
         reason: "Recebeu 3 advertências por questões disciplinares.",
-        notes: "Última advertência em 02/04 por descumprimento de procedimentos operacionais. Caso encaminhado para análise do RH.",
-        imageSrc: "https://images.unsplash.com/photo-1501854140801-50d01698950b"
+        notes: "Última advertência em 11/04 por descumprimento de procedimentos operacionais. Caso encaminhado para análise do RH.",
+        imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor12.jpg",
+        errors: [
+          "Descumprimento de procedimentos operacionais",
+          "Faltas sem justificativa prévia",
+          "Conflitos com colegas de trabalho"
+        ],
+        recommendations: "Recomendação: avaliar continuidade do contrato conforme política disciplinar da empresa."
       }
     }
   ];
+
+  // Status colors
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Crítico': return 'bg-red-100 text-red-800';
+      case 'Em análise': return 'bg-amber-100 text-amber-800';
+      case 'Pendente': return 'bg-blue-100 text-blue-800';
+      case 'Justificado': return 'bg-green-100 text-green-800';
+      case 'Encerrado': return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  // Função para filtrar promotores com base no termo de busca
+  const filteredPromoters = inactivePromoters.filter(promoter => 
+    promoter.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    promoter.reason.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    promoter.region.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    promoter.status.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Função para copiar dados do promotor selecionado
+  const copyPromoterData = (promoter: any) => {
+    const dataText = `
+      Promotor: ${promoter.name}
+      Motivo: ${promoter.reason}
+      Justificativa: ${promoter.justification}
+      Última Atividade: ${promoter.lastActivity}
+      Regional: ${promoter.region}
+      Status: ${promoter.status}
+      Detalhes: ${promoter.details.notes}
+    `;
+    
+    navigator.clipboard.writeText(dataText).then(() => {
+      toast({
+        title: "Dados copiados",
+        description: "Informações do promotor copiadas para a área de transferência",
+      });
+    }).catch(err => {
+      console.error('Erro ao copiar: ', err);
+      toast({
+        title: "Erro ao copiar",
+        description: "Não foi possível copiar os dados. Tente novamente.",
+        variant: "destructive"
+      });
+    });
+  };
 
   // Dados dos coordenadores
   const coordinators = [
@@ -420,18 +486,6 @@ const Index = () => {
     }
   ];
 
-  // Status colors
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Crítico': return 'bg-red-100 text-red-800';
-      case 'Em análise': return 'bg-amber-100 text-amber-800';
-      case 'Pendente': return 'bg-blue-100 text-blue-800';
-      case 'Justificado': return 'bg-green-100 text-green-800';
-      case 'Encerrado': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
   return (
     <div className="container py-8 max-w-7xl mx-auto">
       <h1 className="text-center md:text-left">Apresentação do B.I. de Balanceamento</h1>
@@ -447,6 +501,16 @@ const Index = () => {
           />
         </div>
         
+        <div className="mb-4 relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-bi-muted h-4 w-4" />
+          <Input 
+            placeholder="Buscar promotor, motivo, regional ou status..."
+            className="pl-10"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        
         <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableCaption>Lista de promotores inativos e suas justificativas</TableCaption>
@@ -458,11 +522,11 @@ const Index = () => {
                 <TableHead className="bg-bi-primary text-white">Última Atividade</TableHead>
                 <TableHead className="bg-bi-primary text-white">Regional</TableHead>
                 <TableHead className="bg-bi-primary text-white">Status</TableHead>
-                <TableHead className="bg-bi-primary text-white">Detalhes</TableHead>
+                <TableHead className="bg-bi-primary text-white">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {inactivePromoters.map((promoter, index) => (
+              {filteredPromoters.map((promoter, index) => (
                 <TableRow key={index} className={index % 2 === 1 ? 'bg-bi-hover' : ''}>
                   <TableCell className="font-medium">
                     <Button 
@@ -504,15 +568,25 @@ const Index = () => {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex items-center gap-1"
-                      onClick={() => setSelectedPromoter(promoter.name)}
-                    >
-                      <Info className="h-4 w-4" />
-                      Ver
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex items-center gap-1"
+                        onClick={() => setSelectedPromoter(promoter.name)}
+                      >
+                        <Info className="h-4 w-4" />
+                        Ver
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => copyPromoterData(promoter)}
+                        className="flex items-center gap-1"
+                      >
+                        Copiar
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
