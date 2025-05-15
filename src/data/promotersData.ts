@@ -1,6 +1,98 @@
-
 import { Promoter } from '@/components/InactivePromotersSection';
 import { FilterItem } from '@/components/FiltersList';
+
+// Dados dos coordenadores com problemas
+export interface CoordinatorData {
+  name: string;
+  issue: string;
+  imageSrc: string;
+}
+
+export const coordinatorsData: CoordinatorData[] = [
+  {
+    name: "ADRIANO TRINDADE DOS SANTOS",
+    issue: "Promotor ALUIZIO COSTA BACURY NETO não está na hierarquia correta.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/adriano_errado.png?raw=true"
+  },
+  {
+    name: "CARLA DO NASCIMENTO GONCALVES",
+    issue: "Está com TATIANO FELIX SILVA na sua hierarquia, sendo que ambos são supervisores.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/carla_errado.png?raw=true"
+  },
+  {
+    name: "DJAVAN AMORIM DOS SANTOS",
+    issue: "Está com ANTONIO CARLOS RIOS DA SILVA JUNIOR e ERIK OLIVEIRA SANTOS na sua hierarquia, sendo que ambos são supervisores.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/djavan_errado.png?raw=true"
+  },
+  {
+    name: "JEFERSON RODRIGO FRAGA FONSECA",
+    issue: "Está com LUCAS MARCOS RIBEIRO DE CARVALHO na sua hierarquia, sendo que ambos são supervisores.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/jeferson_errado.png?raw=true"
+  },
+  {
+    name: "NELSON DO COUTO GONCALVES",
+    issue: "Os promotores estão com hierarquia errada: GABRIEL GUILBERT OLIVEIRA DA SILVA e TIAGO CABRAL DA SILVA.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/nelson_errado.png?raw=true"
+  },
+  {
+    name: "MIRIELE ELIAS",
+    issue: "A líder CLAUZIA ANDREOLA está na sua hierarquia, mas precisa ser ajustada.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/miriele_errado.png?raw=true"
+  },
+  {
+    name: "THALES HENRIQUE MORAIS DELFINO",
+    issue: "Está com GUSTAVO SANTANA RIBEIRO na sua hierarquia, sendo que ambos são supervisores.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/thales_errado.png?raw=true"
+  },
+  {
+    name: "THIAGO FRANCA DA SILVA",
+    issue: "Está com JOAO CARLOS MARCON NETO na sua hierarquia, sendo que ambos são supervisores.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/thiago_errado.png?raw=true"
+  }
+];
+
+// Dados dos problemas regionais
+export interface RegionalData {
+  name: string;
+  issue: string;
+  imageSrc: string;
+}
+
+export const regionalsData: RegionalData[] = [
+  {
+    name: "Centro-Oeste",
+    issue: "Possui lojas do Nordeste (30069-SUPERMERCADOS COMPER - CUIABA - JARDIM KENNYA), roteirizada para um promotor onde a hierarquia está o supervisor do nordeste e o coordenador.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/centro_oeste.png?raw=true"
+  },
+  {
+    name: "Nordeste",
+    issue: "Possui lojas do nordeste (7661-LOJAS AMERICANAS - SOBRAL - CENTRO), roteirizadas para um promotor com a hierarquia do coordenador de São Paulo GILMAR TEIXEIRA DA SILVA.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/nordeste.png?raw=true"
+  },
+  {
+    name: "SP",
+    issue: "Possui o coordenador do R.E.M MARCOS VINICIUS PORTELA na hierarquia dessa regional.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/sp_novo_errado.png?raw=true"
+  },
+  {
+    name: "Sul",
+    issue: "Possui o coordenador de SP, GILMAR TEIXEIRA DA SILVA na hierarquia dessa regional, também tem a Gerente IONE DUARTE DO NASCIMENTO na hierarquia, com o gerente ADRIANO TRINDADE DOS SANTOS e o coordenador CLAUDIO NEY PINHEIRO MACEDO, vinculados a lojas dessa regional.",
+    imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/sul.png?raw=true"
+  }
+];
+
+// Dados dos coordenadores
+export const coordinators = [
+  "ADRIANO TRINDADE DOS SANTOS",
+  "CARLA DO NASCIMENTO GONCALVES",
+  "DJAVAN AMORIM DOS SANTOS",
+  "JEFERSON RODRIGO FRAGA FONSECA",
+  "NELSON DO COUTO GONCALVES",
+  "MICHAEL RODRIGUES",
+  "MIRIELE ELIAS",
+  "THALES HENRIQUE MORAIS DELFINO",
+  "THIAGO FRANCA DA SILVA"
+];
 
 // Dados dos promotores inativos
 export const inactivePromoters: Promoter[] = [
@@ -220,19 +312,6 @@ export const inactivePromoters: Promoter[] = [
       recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   }
-];
-
-// Dados dos coordenadores
-export const coordinators = [
-  "Adriano Trindade",
-  "Carla do Nascimento",
-  "Djavan Amorim",
-  "Jeferson Rodrigues",
-  "Michael Rodrigues",
-  "Nelson do Couto",
-  "Miriele Elias",
-  "Thales Henrique",
-  "Thiago Franca"
 ];
 
 // Dados da tabela de balanceamento

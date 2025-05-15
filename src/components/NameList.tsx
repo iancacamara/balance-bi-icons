@@ -1,51 +1,32 @@
 
-import React, { useState } from 'react';
-import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import React from 'react';
+import { 
+  Card, 
+  CardContent 
+} from "@/components/ui/card";
+import { User } from 'lucide-react';
 
 interface NameListProps {
   names: string[];
-  title?: string;
+  onNameClick?: (name: string) => void;
+  activeItem?: string | null;
 }
 
-const NameList = ({ names, title }: NameListProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  const filteredNames = names.filter(name => 
-    name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+const NameList = ({ names, onNameClick, activeItem }: NameListProps) => {
   return (
-    <div className="space-y-4">
-      {title && <h3 className="text-lg font-medium">{title}</h3>}
-      
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-        <Input 
-          placeholder="Buscar nomes..."
-          className="pl-10"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-      
-      <div className="max-h-80 overflow-y-auto pr-2">
-        <ul className="list-disc list-inside space-y-2">
-          {filteredNames.map((name, index) => (
-            <li 
-              key={index}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
-              {name}
-            </li>
-          ))}
-        </ul>
-        
-        {filteredNames.length === 0 && (
-          <p className="text-muted-foreground italic text-center py-4">Nenhum nome encontrado</p>
-        )}
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      {names.map((name, index) => (
+        <Card 
+          key={index} 
+          className={`cursor-pointer hover:bg-slate-50 transition-colors ${activeItem === name ? 'border-blue-500 bg-blue-50' : ''}`}
+          onClick={() => onNameClick && onNameClick(name)}
+        >
+          <CardContent className="p-4 flex items-center gap-2">
+            <User className="h-4 w-4 text-gray-500" />
+            <span className="text-sm">{name}</span>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 };
