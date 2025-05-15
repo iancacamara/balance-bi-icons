@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export interface FilterItem {
   name: string;
   issues: string[];
-  status: 'error' | 'warning' | 'ok';
+  status: 'error' | 'warning' | 'success';
 }
 
 interface FiltersListProps {
@@ -14,24 +14,24 @@ interface FiltersListProps {
 }
 
 const FiltersList = ({ filters }: FiltersListProps) => {
-  const getStatusIcon = (status: 'error' | 'warning' | 'ok') => {
+  const getStatusIcon = (status: 'error' | 'warning' | 'success') => {
     switch (status) {
       case 'error':
         return <AlertCircle className="mr-2 h-4 w-4 text-red-500" />;
       case 'warning':
         return <AlertTriangle className="mr-2 h-4 w-4 text-amber-500" />;
-      case 'ok':
+      case 'success':
         return <CheckCircle className="mr-2 h-4 w-4 text-green-500" />;
     }
   };
 
-  const getStatusClass = (status: 'error' | 'warning' | 'ok') => {
+  const getStatusClass = (status: 'error' | 'warning' | 'success') => {
     switch (status) {
       case 'error':
         return 'bg-red-50 border-red-200';
       case 'warning':
         return 'bg-amber-50 border-amber-200';
-      case 'ok':
+      case 'success':
         return 'bg-green-50 border-green-200';
     }
   };

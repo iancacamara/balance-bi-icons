@@ -6,170 +6,218 @@ import { FilterItem } from '@/components/FiltersList';
 export const inactivePromoters: Promoter[] = [
   {
     name: "ANA CAROLINA SOUSA ROCHA",
-    reason: "Não compareceu por 30 dias",
-    justification: "Sem contato",
-    lastActivity: "22/04",
-    region: "SPI2",
+    store: "36836-CAMINO SM - SAO LUIS - VILA RIOD",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "06/05/2025",
+    region: "Nordeste",
+    coordinator: "HEIDER ISBELO DE SOUSA",
+    situation: "Ainda roteirizada para o colaborador inativo",
     status: "Crítico",
     details: {
-      reason: "A promotora não compareceu ao trabalho por mais de 30 dias e não atendeu as ligações.",
-      notes: "Tentativas de contato foram feitas nos dias 23/04, 25/04 e 29/04 sem sucesso. E-mails foram enviados mas não houve resposta.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor1.jpg",
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/ana_carolina_loja.png.png?raw=true",
       errors: [
-        "Ausência não justificada por 30 dias consecutivos",
-        "Não respondeu a 5 tentativas de contato via telefone",
-        "Clientes sem atendimento relataram problemas"
+        "Promotor sem atender a loja desde o mês de fevereiro",
+        "Descredenciado desde o dia 06/05",
+        "Cliente sendo cobrado e sem atendimento"
       ],
-      recommendations: "Recomendação: iniciar processo de substituição e verificar procedimentos de rescisão contratual."
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "BEATRIZ CONCEIÇÃO DA COSTA",
-    reason: "Afastamento médico",
-    justification: "Atestado enviado",
-    lastActivity: "15/04",
-    region: "SP1",
-    status: "Justificado",
+    store: "375-ATACADAO - SAO PAULO - VILA MARIA - 060 - VILA MARIA",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "13/05/2025",
+    region: "SP",
+    coordinator: "GILMAR TEIXEIRA DA SILVA",
+    situation: "Ainda roteirizada para o colaborador inativo",
+    status: "Crítico",
     details: {
-      reason: "Afastamento por motivos médicos com atestado válido.",
-      notes: "Atestado médico com validade até 15/05. Retorno previsto para 16/05.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor2.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/beatriz_concei%C3%A7%C3%A3o_loja_png.png?raw=true",
+      errors: [
+        "Descredenciado desde o dia 13/05"
+      ],
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "CÁSSIO SILVA DA CONCEIÇÃO",
-    reason: "Desligamento voluntário",
-    justification: "Pedido de demissão",
-    lastActivity: "05/04",
-    region: "SUL1",
+    store: "339-ATACADAO - SAO PAULO - JARDIM DAS FLORES - 020 - SANTO AMARO",
+    reason: "Rota já em Vaga em aberto.",
+    justification: "Sem justificativa",
+    lastActivity: "13/05/2025",
+    region: "SP",
+    coordinator: "JOÃO VITOR MACHADO DA SILVA",
+    situation: "Rota já em Vaga em aberto.",
     status: "Encerrado",
     details: {
-      reason: "Promotor pediu desligamento voluntário por motivos pessoais.",
-      notes: "Realizou a entrega do crachá e equipamentos. Documentação de saída processada pelo RH.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor3.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/c%C3%A1ssio_silva_loja.png.png?raw=true",
+      recommendations: "Foram realizados os ajustes corretamente no tempo hábil."
     }
   },
   {
     name: "ERICK WILLIAM PROENÇA",
-    reason: "Baixa performance",
-    justification: "Abaixo da meta",
-    lastActivity: "10/04",
-    region: "Nordeste",
-    status: "Em análise",
+    store: "3430-SONDA - PIEDADE - VILA BUARQUE",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "06/05/2025",
+    region: "SP",
+    coordinator: "FABIO SEVERIO DA SILVA",
+    situation: "Ainda roteirizada para o colaborador inativo",
+    status: "Crítico",
     details: {
-      reason: "Performance abaixo do esperado por três meses consecutivos.",
-      notes: "Reuniões de feedback realizadas em 15/02, 20/03 e 10/04. Plano de melhoria não atingiu os objetivos propostos.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor4.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/erick_william_loja.png.png?raw=true",
+      errors: [
+        "Descredenciado desde o dia 06/05"
+      ],
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "HALISSON DA SILVA SANTOS",
-    reason: "Abandono de função",
-    justification: "Sem comunicação",
-    lastActivity: "30/03",
-    region: "SP2",
+    store: "284-ATACADAO - JABOATAO DOS GUARARAPES - PRAZERES - 29 - JABOATAO PRAZERES",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "09/05/2025",
+    region: "Nordeste",
+    coordinator: "HEIDER ISBELO DE SOUSA",
+    situation: "Ainda roteirizada para o colaborador inativo",
     status: "Crítico",
     details: {
-      reason: "Não compareceu ao trabalho por mais de 15 dias sem justificativa.",
-      notes: "Processo de abandono de função iniciado pelo RH após 15 dias de ausência sem comunicação.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor5.jpg"
-    }
-  },
-  {
-    name: "INGRID STEFANI DE OLIVEIRA CORDEIRO",
-    reason: "Transferência interna",
-    justification: "Mudança de departamento",
-    lastActivity: "12/04",
-    region: "SUL2",
-    status: "Encerrado",
-    details: {
-      reason: "Transferida para outro departamento da empresa.",
-      notes: "Transferência aprovada pela gerência em 12/04. Novo departamento: Marketing.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor6.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/hallisson_da_silva_loja.png.png?raw=true",
+      errors: [
+        "Descredenciado desde o dia 09/05"
+      ],
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "LUANE APARECIDA DA SILVA",
-    reason: "Licença maternidade",
-    justification: "Afastamento legal",
-    lastActivity: "20/03",
-    region: "SPI1",
-    status: "Justificado",
+    store: "9029-FORT ATACADISTA - 385 - SAO BENTO DO SUL - CENTRO",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "13/05/2025",
+    region: "Sul",
+    coordinator: "MARCOS VINICIUS OLIVEIRA DA SILVA",
+    situation: "Ainda roteirizada para o colaborador inativo",
+    status: "Crítico",
     details: {
-      reason: "Em licença maternidade desde 20/03.",
-      notes: "Retorno previsto para 20/09. Documentação processada pelo RH.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor7.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/luane_aparecida_loja.png.png?raw=true",
+      errors: [
+        "Descredenciado desde o dia 13/05"
+      ],
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "LUCAS RIBEIRO DA SILVA",
-    reason: "Conflito de horário",
-    justification: "Impossibilidade de agenda",
-    lastActivity: "18/04",
-    region: "SP3",
-    status: "Em análise",
+    store: "12464-ATACADAO - JOINVILLE - GLORIA - 282 - JOINVILLE",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "13/05/2025",
+    region: "Sul",
+    coordinator: "MARCOS VINICIUS OLIVEIRA DA SILVA",
+    situation: "Ainda roteirizada para o colaborador inativo",
+    status: "Crítico",
     details: {
-      reason: "Conflitos recorrentes com horários estabelecidos.",
-      notes: "Reunião de alinhamento marcada para 25/04 para discutir alternativas de horário.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor8.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/lucas_ribeiro_loja.png.png?raw=true",
+      errors: [
+        "Descredenciado desde o dia 13/05"
+      ],
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "SHIRLEY MARTINS DA SILVA NASCIMENTO",
-    reason: "Problema de saúde",
-    justification: "Sem atestado formal",
-    lastActivity: "14/04",
-    region: "Nacional",
-    status: "Pendente",
+    store: "8148-SAO JUDAS TADEU - SANTA CRUZ DO RIO PARDO e 7434-CASA AVENIDA - SNT CRUZ DO RIO PARDO",
+    reason: "Rota já em Vaga em aberto e solicitação de roteiroretirado",
+    justification: "Sem justificativa",
+    lastActivity: "09/05/2025",
+    region: "SP",
+    coordinator: "PAULO MANOEL MORATO JUNIOR",
+    situation: "Rota já em Vaga em aberto e solicitação de roteiroretirado",
+    status: "Encerrado",
     details: {
-      reason: "Relatou problemas de saúde, mas não enviou documentação médica.",
-      notes: "Aguardando envio de atestado médico. Prazo final: 28/04.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor9.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/shirley_martins_loja.png.png?raw=true",
+      recommendations: "Foram realizados os ajustes corretamente no tempo hábil."
     }
   },
   {
     name: "SUELLEN RIBEIRO GOMES",
-    reason: "Mudança de residência",
-    justification: "Relocalização",
-    lastActivity: "05/04",
-    region: "MG",
-    status: "Encerrado",
+    store: "VÁRIAS LOJAS",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "13/05/2025",
+    region: "R.E.M",
+    coordinator: "MARCOS VINICIUS PORTELA",
+    situation: "Ainda roteirizada para o colaborador inativo",
+    status: "Crítico",
     details: {
-      reason: "Mudança para outra cidade impossibilitou continuidade.",
-      notes: "Processo de desligamento amigável concluído em 05/04.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor10.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/suellen_ribeiro_loja.png.png?raw=true",
+      errors: [
+        "Descredenciado desde o dia 13/05"
+      ],
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "THAMIRES SILVA RODRIGUES",
-    reason: "Nova proposta",
-    justification: "Oportunidade externa",
-    lastActivity: "08/04",
-    region: "RJ",
-    status: "Encerrado",
+    store: "146-ASSAI - SAO PAULO - JARDIM SAO LUIZ - 018 - JOAO DIAS",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "13/05/2025",
+    region: "SP",
+    coordinator: "MICHAEL RODRIGUES COSTA DE MEIRA",
+    situation: "Ainda roteirizada para o colaborador inativo",
+    status: "Crítico",
     details: {
-      reason: "Aceitou proposta de outra empresa.",
-      notes: "Entrevista de desligamento realizada em 08/04. Feedback positivo sobre a experiência na empresa.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor11.jpg"
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/thamires_silva_loja.png.png?raw=true",
+      errors: [
+        "Descredenciado desde o dia 13/05"
+      ],
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   },
   {
     name: "WESLEY GONÇALVES DA SILVA MARINHO",
-    reason: "Advertências múltiplas",
-    justification: "Questões disciplinares",
-    lastActivity: "11/04",
-    region: "ES",
+    store: "VÁRIAS LOJAS",
+    reason: "Promotor inativo roteirizado, e precisa ser substituido por VAGA EM ABERTO - NOME DO SUPERVISOR",
+    justification: "Sem justificativa",
+    lastActivity: "08/05/2025",
+    region: "SP",
+    coordinator: "GILMAR TEIXEIRA DA SILVA",
+    situation: "Ainda roteirizada para o colaborador inativo",
     status: "Crítico",
     details: {
-      reason: "Recebeu 3 advertências por questões disciplinares.",
-      notes: "Última advertência em 11/04 por descumprimento de procedimentos operacionais. Caso encaminhado para análise do RH.",
-      imageSrc: "https://github.com/iancacamara/imagens_promotores/raw/main/promotor12.jpg",
+      reason: "A promotora pediu demissão ou foi descredenciada.",
+      notes: "Todo descredenciamento ou demissão, é dever da supervisão ou coordenação transferir os atendimentos para vaga em aberto e nome do supervisor.",
+      imageSrc: "https://github.com/iancacamara/imagens_promotores/blob/main/Captura%20de%20tela%202025-05-15%20121349.png?raw=true",
       errors: [
-        "Descumprimento de procedimentos operacionais",
-        "Faltas sem justificativa prévia",
-        "Conflitos com colegas de trabalho"
+        "Descredenciado desde o dia 08/05"
       ],
-      recommendations: "Recomendação: avaliar continuidade do contrato conforme política disciplinar da empresa."
+      recommendations: "Realizar um bate toda semana dos promotores descredenciados ou demitidos nos últimos dias e verificar se estão roteirizados corretamente."
     }
   }
 ];

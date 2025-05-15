@@ -1,14 +1,10 @@
 
 import React from 'react';
 import { Filter } from 'lucide-react';
-import FiltersList from '@/components/FiltersList';
+import FiltersList, { FilterItem } from '@/components/FiltersList';
 
 interface FiltersSectionProps {
-  filters: Array<{
-    name: string;
-    issues: string[];
-    status: 'error' | 'warning' | 'success';
-  }>;
+  filters: FilterItem[];
 }
 
 const FiltersSection = ({ filters }: FiltersSectionProps) => {
