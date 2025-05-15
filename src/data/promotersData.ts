@@ -1,4 +1,6 @@
+
 import { Promoter } from '@/components/InactivePromotersSection';
+import { FilterItem } from '@/components/FiltersList';
 
 // Dados dos promotores inativos
 export const inactivePromoters: Promoter[] = [
@@ -371,35 +373,35 @@ export const balanceTableData = [
 ];
 
 // Dados dos filtros
-export const filters = [
+export const filters: FilterItem[] = [
   {
     name: "Filtro de Bairro",
     issues: ["Linhas vazias", "-", "-SCNPJ", "com o 0"],
-    status: 'error' as const
+    status: 'error'
   },
   {
     name: "Filtro de Cidade",
     issues: ["Linhas vazias", "-", "-SCNPJ", "com a letra A"],
-    status: 'error' as const
+    status: 'error'
   },
   {
     name: "Filtro de UF",
     issues: ["Linhas vazias"],
-    status: 'warning' as const
+    status: 'warning'
   },
   {
     name: "Filtro Nome da Loja",
     issues: ["Linhas vazias"],
-    status: 'warning' as const
+    status: 'warning'
   },
   {
     name: "Perfil de Contratação",
     issues: ["Está vindo vazio"],
-    status: 'error' as const
+    status: 'error'
   },
   {
     name: "Filtro de Família",
     issues: ["Linhas vazias"],
-    status: 'warning' as const
+    status: 'warning'
   }
 ];

@@ -20,11 +20,14 @@ import { useToast } from "@/hooks/use-toast";
 
 interface Promoter {
   name: string;
+  store: string;
   reason: string;
   justification: string;
   lastActivity: string;
   region: string;
   status: string;
+  coordinator: string;
+  situation: string;
   details: {
     reason: string;
     notes: string;
@@ -58,20 +61,26 @@ const InactivePromotersSection = ({ inactivePromoters }: InactivePromotorsSectio
   // Função para filtrar promotores com base no termo de busca
   const filteredPromoters = inactivePromoters.filter(promoter => 
     promoter.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    promoter.store.toLowerCase().includes(searchTerm.toLowerCase()) ||
     promoter.reason.toLowerCase().includes(searchTerm.toLowerCase()) ||
     promoter.region.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    promoter.status.toLowerCase().includes(searchTerm.toLowerCase())
+    promoter.coordinator.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    promoter.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    promoter.situation.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Função para copiar dados do promotor selecionado
   const copyPromoterData = (promoter: Promoter) => {
     const dataText = `
       Promotor: ${promoter.name}
+      Loja: ${promoter.store}
       Motivo: ${promoter.reason}
       Justificativa: ${promoter.justification}
-      Última Atividade: ${promoter.lastActivity}
+      Data descredenciamento: ${promoter.lastActivity}
       Regional: ${promoter.region}
+      Coordenador: ${promoter.coordinator}
       Status: ${promoter.status}
+      Situação: ${promoter.situation}
       Detalhes: ${promoter.details.notes}
     `;
     
@@ -105,7 +114,7 @@ const InactivePromotersSection = ({ inactivePromoters }: InactivePromotorsSectio
       <div className="mb-4 relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-bi-muted h-4 w-4" />
         <Input 
-          placeholder="Buscar promotor, motivo, regional ou status..."
+          placeholder="Buscar promotor, loja, motivo, regional, coordenador ou status..."
           className="pl-10"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -118,11 +127,14 @@ const InactivePromotersSection = ({ inactivePromoters }: InactivePromotorsSectio
           <TableHeader>
             <TableRow>
               <TableHead className="bg-bi-primary text-white">Nome do Promotor</TableHead>
+              <TableHead className="bg-bi-primary text-white">Loja</TableHead>
               <TableHead className="bg-bi-primary text-white">Motivo</TableHead>
               <TableHead className="bg-bi-primary text-white">Justificativa</TableHead>
-              <TableHead className="bg-bi-primary text-white">Última Atividade</TableHead>
+              <TableHead className="bg-bi-primary text-white">Data descredenciamento</TableHead>
               <TableHead className="bg-bi-primary text-white">Regional</TableHead>
+              <TableHead className="bg-bi-primary text-white">Coordenador</TableHead>
               <TableHead className="bg-bi-primary text-white">Status</TableHead>
+              <TableHead className="bg-bi-primary text-white">Situação</TableHead>
               <TableHead className="bg-bi-primary text-white">Ações</TableHead>
             </TableRow>
           </TableHeader>
@@ -138,11 +150,12 @@ const InactivePromotersSection = ({ inactivePromoters }: InactivePromotorsSectio
                     {promoter.name}
                   </Button>
                 </TableCell>
+                <TableCell>{promoter.store}</TableCell>
                 <TableCell>
                   <HoverCard>
                     <HoverCardTrigger asChild>
                       <span className="cursor-help underline underline-offset-2 text-bi-primary">
-                        {promoter.reason}
+                        {promoter.reason.length > 30 ? promoter.reason.substring(0, 30) + '...' : promoter.reason}
                       </span>
                     </HoverCardTrigger>
                     <HoverCardContent className="w-80">
@@ -150,7 +163,7 @@ const InactivePromotersSection = ({ inactivePromoters }: InactivePromotorsSectio
                         <div className="space-y-1">
                           <h4 className="text-sm font-semibold">Detalhes do Motivo</h4>
                           <p className="text-sm">
-                            {promoter.details.reason}
+                            {promoter.reason}
                           </p>
                         </div>
                       </div>
@@ -160,6 +173,7 @@ const InactivePromotersSection = ({ inactivePromoters }: InactivePromotorsSectio
                 <TableCell>{promoter.justification}</TableCell>
                 <TableCell>{promoter.lastActivity || "-"}</TableCell>
                 <TableCell>{promoter.region || "-"}</TableCell>
+                <TableCell>{promoter.coordinator || "-"}</TableCell>
                 <TableCell>
                   <Badge 
                     variant="outline" 
@@ -167,6 +181,9 @@ const InactivePromotersSection = ({ inactivePromoters }: InactivePromotorsSectio
                   >
                     {promoter.status}
                   </Badge>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">{promoter.situation}</span>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">

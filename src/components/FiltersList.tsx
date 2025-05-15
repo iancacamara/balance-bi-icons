@@ -1,17 +1,12 @@
 
 import React from 'react';
-import { Check, Info, X } from 'lucide-react';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { AlertCircle, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
 
-interface FilterItem {
+export interface FilterItem {
   name: string;
   issues: string[];
-  status: 'ok' | 'warning' | 'error';
+  status: 'error' | 'warning' | 'ok';
 }
 
 interface FiltersListProps {
@@ -19,56 +14,53 @@ interface FiltersListProps {
 }
 
 const FiltersList = ({ filters }: FiltersListProps) => {
+  const getStatusIcon = (status: 'error' | 'warning' | 'ok') => {
+    switch (status) {
+      case 'error':
+        return <AlertCircle className="mr-2 h-4 w-4 text-red-500" />;
+      case 'warning':
+        return <AlertTriangle className="mr-2 h-4 w-4 text-amber-500" />;
+      case 'ok':
+        return <CheckCircle className="mr-2 h-4 w-4 text-green-500" />;
+    }
+  };
+
+  const getStatusClass = (status: 'error' | 'warning' | 'ok') => {
+    switch (status) {
+      case 'error':
+        return 'bg-red-50 border-red-200';
+      case 'warning':
+        return 'bg-amber-50 border-amber-200';
+      case 'ok':
+        return 'bg-green-50 border-green-200';
+    }
+  };
+
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filters.map((filter, index) => (
-          <div 
-            key={index} 
-            className="border rounded-lg p-4 animate-slide-up"
-            style={{ '--index': index } as React.CSSProperties}
-          >
-            <div className="flex items-center justify-between mb-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {filters.map((filter, index) => (
+        <Card 
+          key={index} 
+          className={`border ${getStatusClass(filter.status)}`}
+        >
+          <CardContent className="p-4">
+            <div className="flex items-center mb-2">
+              {getStatusIcon(filter.status)}
               <h3 className="font-medium">{filter.name}</h3>
-              {filter.status === 'ok' && (
-                <Check className="h-5 w-5 text-green-500" />
-              )}
-              {filter.status === 'warning' && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Info className="h-5 w-5 text-amber-500" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Este filtro tem alguns problemas menores</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
-              {filter.status === 'error' && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <X className="h-5 w-5 text-red-500" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Este filtro precisa de correção</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
             </div>
             
-            {filter.issues.length > 0 && (
-              <ul className="text-sm text-bi-muted list-disc list-inside space-y-1">
-                {filter.issues.map((issue, issueIndex) => (
-                  <li key={issueIndex}>{issue}</li>
+            {filter.issues.length > 0 ? (
+              <ul className="pl-6 list-disc text-sm space-y-1 text-gray-700">
+                {filter.issues.map((issue, i) => (
+                  <li key={i}>{issue}</li>
                 ))}
               </ul>
+            ) : (
+              <p className="text-green-600 text-sm">Sem problemas</p>
             )}
-          </div>
-        ))}
-      </div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 };
