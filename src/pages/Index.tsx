@@ -6,6 +6,7 @@ import CoordinatorsSection from '@/components/CoordinatorsSection';
 import BalanceSection from '@/components/BalanceSection';
 import FiltersSection from '@/components/FiltersSection';
 import ConclusionSection from '@/components/ConclusionSection';
+import PowerBISection from '@/components/PowerBISection';
 import { 
   inactivePromoters, 
   coordinators, 
@@ -18,6 +19,8 @@ const Index = () => {
   return (
     <div className="container py-8 max-w-7xl mx-auto">
       <h1 className="text-center md:text-left">Apresentação do B.I. de Balanceamento</h1>
+      
+      <PowerBISection />
       
       <InactivePromotersSection inactivePromoters={inactivePromoters} />
       
