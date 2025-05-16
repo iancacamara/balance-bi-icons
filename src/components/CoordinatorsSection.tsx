@@ -13,7 +13,7 @@ import {
   TabsList, 
   TabsTrigger 
 } from "@/components/ui/tabs";
-import { coordinatorsData } from '@/data/promotersData';
+import { coordinatorsData, regionalsData } from '@/data/promotersData';
 
 interface CoordinatorsSectionProps {
   coordinators: string[];
