@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { UserCog, AlertTriangle } from 'lucide-react';
+import { UserCog, AlertTriangle, Search } from 'lucide-react';
 import StatCard from '@/components/StatCard';
 import NameList from '@/components/NameList';
 import { 
@@ -13,6 +13,7 @@ import {
   TabsList, 
   TabsTrigger 
 } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
 import { coordinatorsData, regionalsData } from '@/data/promotersData';
 
 interface CoordinatorsSectionProps {
@@ -22,7 +23,13 @@ interface CoordinatorsSectionProps {
 const CoordinatorsSection = ({ coordinators }: CoordinatorsSectionProps) => {
   const [activeTab, setActiveTab] = useState("list");
   const [selectedCoordinator, setSelectedCoordinator] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
   
+  // Filtrar coordenadores com base no termo de busca
+  const filteredCoordinators = coordinators.filter(coordinator => 
+    coordinator.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Encontrar o coordenador selecionado nos dados
   const coordinatorDetails = selectedCoordinator 
     ? coordinatorsData.find(coord => coord.name === selectedCoordinator) 
@@ -60,8 +67,18 @@ const CoordinatorsSection = ({ coordinators }: CoordinatorsSectionProps) => {
         </TabsList>
         
         <TabsContent value="list">
+          <div className="mb-4 relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-bi-muted h-4 w-4" />
+            <Input 
+              placeholder="Buscar coordenador por nome..."
+              className="pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
           <NameList 
-            names={coordinators} 
+            names={filteredCoordinators} 
             onNameClick={(name) => setSelectedCoordinator(name)}
             activeItem={selectedCoordinator}
           />
@@ -164,3 +181,4 @@ const CoordinatorsSection = ({ coordinators }: CoordinatorsSectionProps) => {
 };
 
 export default CoordinatorsSection;
+
