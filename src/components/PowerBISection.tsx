@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, Users, ChevronDown, ChevronUp } from 'lucide-react';
 import DataTable from '@/components/DataTable';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 // Definindo a estrutura dos dados de desempenho
 interface PerformanceData {
@@ -25,6 +27,7 @@ interface PerformanceData {
 const PowerBISection = () => {
   const [activeTab, setActiveTab] = useState("powerbi");
   const [searchTerm, setSearchTerm] = useState('');
+  const [expandedCoordinators, setExpandedCoordinators] = useState<string[]>([]);
   
   // Dados de desempenho conforme fornecidos pelo usuário
   const performanceData: PerformanceData[] = [
@@ -96,6 +99,15 @@ const PowerBISection = () => {
     }));
   };
 
+  // Função para alternar a expansão de um coordenador
+  const toggleCoordinator = (coordinator: string) => {
+    if (expandedCoordinators.includes(coordinator)) {
+      setExpandedCoordinators(expandedCoordinators.filter(c => c !== coordinator));
+    } else {
+      setExpandedCoordinators([...expandedCoordinators, coordinator]);
+    }
+  };
+
   return (
     <section className="animate-fade-in mb-10">
       <h2 className="mb-6">B.I. Balanceamento</h2>
@@ -141,20 +153,59 @@ const PowerBISection = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {Object.entries(dataByCoordinator).map(([coordinator, data], index) => (
-              <Card key={index} className="border-l-4 border-l-bi-primary">
-                <CardContent className="p-4">
-                  <h3 className="text-lg font-medium mb-4 sticky top-0 bg-white py-2">Coordenador: {coordinator}</h3>
-                  
-                  <ScrollArea className="h-[500px] pr-4">
-                    <DataTable
-                      headers={performanceHeaders}
-                      data={formatTableData(data)}
-                      caption={`Performance - ${coordinator}`}
-                    />
-                  </ScrollArea>
-                </CardContent>
+          <div className="space-y-4">
+            {Object.entries(dataByCoordinator).map(([coordinator, promoters]) => (
+              <Card key={coordinator} className="border-l-4 border-l-bi-primary">
+                <CardHeader className="p-4 cursor-pointer" onClick={() => toggleCoordinator(coordinator)}>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <Users className="h-5 w-5 text-bi-primary" />
+                      <h3 className="text-lg font-medium">Coordenador: {coordinator}</h3>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="bg-bi-primary text-white">
+                        {promoters.length} registros
+                      </Badge>
+                      {expandedCoordinators.includes(coordinator) ? 
+                        <ChevronUp className="h-5 w-5" /> : 
+                        <ChevronDown className="h-5 w-5" />
+                      }
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                {expandedCoordinators.includes(coordinator) && (
+                  <CardContent className="p-0">
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="bg-bi-primary text-white">Data Inclusão</TableHead>
+                            <TableHead className="bg-bi-primary text-white">Último Atendimento</TableHead>
+                            <TableHead className="bg-bi-primary text-white">Dias Sem Atender</TableHead>
+                            <TableHead className="bg-bi-primary text-white">Loja</TableHead>
+                            <TableHead className="bg-bi-primary text-white">Cliente</TableHead>
+                            <TableHead className="bg-bi-primary text-white">O Que Precisa Ajustar</TableHead>
+                            <TableHead className="bg-bi-primary text-white">Situação</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {promoters.map((item, index) => (
+                            <TableRow key={index} className={index % 2 === 1 ? 'bg-bi-hover' : ''}>
+                              <TableCell>{item.dataInclusao}</TableCell>
+                              <TableCell>{item.ultimoAtendimento}</TableCell>
+                              <TableCell>{item.diasSemAtender}</TableCell>
+                              <TableCell>{item.loja}</TableCell>
+                              <TableCell>{item.cliente}</TableCell>
+                              <TableCell>{item.oQuePrecisaAjustar}</TableCell>
+                              <TableCell>{item.situacao}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardContent>
+                )}
               </Card>
             ))}
           </div>
