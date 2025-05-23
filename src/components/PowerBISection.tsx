@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Search, Filter } from 'lucide-react';
 import DataTable from '@/components/DataTable';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 // Definindo a estrutura dos dados de desempenho
 interface PerformanceData {
@@ -140,19 +141,23 @@ const PowerBISection = () => {
             </div>
           </div>
           
-          {Object.entries(dataByCoordinator).map(([coordinator, data], index) => (
-            <Card key={index} className="mb-6 border-l-4 border-l-bi-primary">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-medium mb-4">Coordenador: {coordinator}</h3>
-                
-                <DataTable
-                  headers={performanceHeaders}
-                  data={formatTableData(data)}
-                  caption={`Performance - ${coordinator}`}
-                />
-              </CardContent>
-            </Card>
-          ))}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {Object.entries(dataByCoordinator).map(([coordinator, data], index) => (
+              <Card key={index} className="border-l-4 border-l-bi-primary">
+                <CardContent className="p-4">
+                  <h3 className="text-lg font-medium mb-4 sticky top-0 bg-white py-2">Coordenador: {coordinator}</h3>
+                  
+                  <ScrollArea className="h-[500px] pr-4">
+                    <DataTable
+                      headers={performanceHeaders}
+                      data={formatTableData(data)}
+                      caption={`Performance - ${coordinator}`}
+                    />
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
           
           {Object.keys(dataByCoordinator).length === 0 && (
             <div className="text-center p-8 bg-gray-50 rounded-lg">
